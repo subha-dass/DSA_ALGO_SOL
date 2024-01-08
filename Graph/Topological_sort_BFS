@@ -1,0 +1,58 @@
+#khans algorithm
+#link-https://www.geeksforgeeks.org/problems/topological-sort/1
+class Solution {
+    public int V; // Number of vertices
+    
+    public void addEdges(int u,int v,ArrayList<ArrayList<Integer>> adjMatrix) {
+        adjMatrix.get(u).add(v);
+    }
+    public boolean toposort(ArrayList<ArrayList<Integer>> adjList){
+        int[] indegree=new int[V];
+        int c=0;
+        for(int i=0;i<V;i++){
+            for(int j:adjList.get(i)){
+                indegree[j]++;
+            }
+        }
+        Queue<Integer> q=new LinkedList<>();
+        for(int i=0;i<V;i++){
+            if(indegree[i]==0){
+                q.add(i);
+            }
+        }
+        int index=0;
+        while(!q.isEmpty()){
+            int u=q.poll();
+            
+            for(int v:adjList.get(u)){
+                if(--indegree[v]==0){
+                    q.add(v);
+                }
+            }
+            c++;
+        }
+        if(c != V){
+            return true;
+        }
+        return false;
+    }
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int n=numCourses;
+        V=n;
+        ArrayList<ArrayList<Integer>> adjList;
+        adjList=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            adjList.add(new ArrayList<>());
+        }
+        
+        for(int[] i:prerequisites){
+            System.out.println(i[0]+" "+i[1]);
+            addEdges(i[0],i[1],adjList);
+        }
+        
+        if(toposort(adjList)){
+            return false;
+        }return true;
+        
+    }
+}

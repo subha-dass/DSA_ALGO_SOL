@@ -1,0 +1,50 @@
+###link-https://www.codingninjas.com/studio/problems/982938?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website&leftPanelTabValue=SUBMISSION
+
+import java.util.* ;
+import java.io.*; 
+public class Solution 
+{
+    public static int  V;
+    public static void addEdges(int s,int d,ArrayList<ArrayList<Integer>> adjList){
+        adjList.get(s).add(d);
+    }
+    public static void DFSRec(int i,ArrayList<ArrayList<Integer>> adjList,boolean[] visited,Stack<Integer> st){
+        visited[i]=true;
+        for(int u:adjList.get(i)){
+            if(!visited[u]){
+                DFSRec(u,adjList,visited,st);
+            }
+            
+        }
+        st.push(i);
+    }
+    public static ArrayList<Integer> topologicalSort(ArrayList<ArrayList<Integer>> edges, int v, int e) 
+    {
+        // Write your code here
+        int V=v;
+        ArrayList<ArrayList<Integer>> adjList;
+        adjList=new ArrayList<>();
+        for(int i=0;i<V;i++){
+            adjList.add(new ArrayList<>());
+        }
+         for (int i = 0; i < edges.size(); i++) {
+            int edge = edges.get(i).get(0);
+            int vertice = edges.get(i).get(1);
+            addEdges(edge, vertice, adjList);
+        }
+        boolean[] visited=new boolean[V];
+        ArrayList<Integer> arr=new ArrayList<>();
+        Stack<Integer> st=new Stack<>();
+        for(int i=0;i<V;i++){
+            if(!visited[i]){
+                DFSRec(i,adjList,visited,st);
+            }
+        }
+        while(!st.isEmpty()){
+            arr.add(st.pop());
+        }
+        return arr;
+    }
+}
+
+
