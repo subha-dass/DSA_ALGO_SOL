@@ -1,0 +1,37 @@
+#link--https://leetcode.com/problems/number-of-islands/description/
+class Solution {
+    int ROW,COL;
+    boolean isSafe(char[][] M,int row,int col,boolean[][] visited ){
+        return (row>=0)&&(row<ROW)&&(col>=0)&&(col<COL)&&(M[row][col]=='1' && !visited[row][col]);
+    }
+    void DFS(char[][] M,int row,int col,boolean[][] visited){
+        int rowNbr[]=new int[]{-1,0,0,1};
+        int colNbr[]=new int[]{0,-1,1,0};
+        visited[row][col]=true;
+        for(int k=0;k<4;++k){
+            if(isSafe(M,row+rowNbr[k],col+colNbr[k],visited)){
+                DFS(M,row+rowNbr[k],col+colNbr[k],visited);
+            }
+        }
+    }
+    public int numIslands(char[][] grid) {
+        int row=grid.length;
+
+        ROW=row;
+        int col=grid[0].length;
+        COL=col;
+
+        boolean visited[][]=new boolean[row][col];
+        int count=0;
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(!visited[i][j] && grid[i][j]=='1'){
+                    System.out.println(i+" "+j);
+                    DFS(grid,i,j,visited);
+                    ++count;
+                }
+            }
+        }
+        return count;
+    }
+}
