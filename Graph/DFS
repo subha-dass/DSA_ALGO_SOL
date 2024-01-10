@@ -61,3 +61,53 @@ public class Solution {
         return result;
     }
 }
+
+
+##Coding ninja Solution
+##link-https://www.codingninjas.com/studio/problems/920551?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website&leftPanelTabValue=SUBMISSION
+import java.util.ArrayList;
+
+public class Solution {
+    
+    public static void addEdges(int s,int d,ArrayList<ArrayList<Integer>> adjList){
+        adjList.get(s).add(d);
+        adjList.get(d).add(s);
+    }
+    public static boolean DFSRec(ArrayList<ArrayList<Integer>> edges,int[] color,int node,int c){
+        color[node]=c;
+        for(int j:edges.get(node)){
+            if(color[j]==-1){
+                if(DFSRec(edges, color, j, 1-c)==false)return false;
+            }else if(color[j]==c){
+                return false;
+            }
+        }
+        return true;
+    }
+    public static boolean isGraphBirpatite(ArrayList<ArrayList<Integer>> edges) {
+        ArrayList<ArrayList<Integer>> adjList=new ArrayList<>();
+        for(int i=0;i<edges.size();i++){
+            adjList.add(new ArrayList<>());
+        }
+        // Write your code here
+        int[] color=new int[edges.size()];
+        for(int i=0;i<edges.size();i++){
+            for(int j=0;j<edges.get(0).size();j++){
+                if(edges.get(i).get(j)==1){
+                    addEdges(i, j, adjList);
+                }
+            }
+        }
+        for(int i=0;i<edges.size();i++){
+            color[i]=-1;
+        }
+        for(int i=0;i<edges.size();i++){
+            if(color[i]==-1){
+                if(DFSRec(adjList,color,i,0)==false){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
