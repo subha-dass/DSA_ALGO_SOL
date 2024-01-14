@@ -1,0 +1,51 @@
+#link-https://www.geeksforgeeks.org/problems/minimum-spanning-tree/1
+#PrimsAlgo
+class Solution{
+    static class Pair{
+        int dest,wt;
+        public Pair(int dest,int wt){
+            this.dest=dest;
+            this.wt=wt;
+        }
+    }
+    static int PrimsAlgo(boolean[] mset,int[] key,ArrayList<Pair>[] adj,int V){
+        key[0]=0;
+        int res=0;
+        for(int k=0;k<V;k++){
+            int u=-1;
+            for(int i=0;i<V;i++){
+                if(!mset[i] &&(u==-1 || key[i]<key[u]))
+                {
+                    u=i;
+                }
+            }
+            mset[u]=true;
+            
+            res+=key[u];
+            for(Pair p:adj[u]){
+                if(!mset[p.dest]&& key[p.dest]>p.wt){
+                    key[p.dest]=p.wt;
+                }
+            }
+        }
+        return res;
+    }
+	static int spanningTree(int V, int E, int edges[][]){
+	   boolean[] mset=new boolean[V];
+	   int[] key=new int[V];
+	   Arrays.fill(key,(int)1e8);
+	   ArrayList<Pair>[] adj=new ArrayList[V];
+	   for(int i=0;i<V;i++){
+	       adj[i]=new ArrayList<>();
+	   }
+	   for(int[] edge:edges){
+	       int src=edge[0];
+	       int dest=edge[1];
+	       int wt=edge[2];
+	       adj[src].add(new Pair(dest,wt));
+	       adj[dest].add(new Pair(src,wt));
+	   }
+	   int result=PrimsAlgo(mset,key,adj,V);
+	   return result;
+	}
+}
