@@ -1,0 +1,12 @@
+#link- https://leetcode.com/problems/binary-tree-inorder-traversal/
+class Solution {
+    List<Integer> la=new ArrayList<Integer>();
+    public List<Integer> inorderTraversal(TreeNode root) {
+        if(root!=null){
+            inorderTraversal(root.left);
+            la.add(root.val);
+            inorderTraversal(root.right);
+        }
+        return la;
+    }
+}

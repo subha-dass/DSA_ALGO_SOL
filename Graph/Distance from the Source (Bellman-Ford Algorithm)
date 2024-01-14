@@ -1,0 +1,45 @@
+#link-https://www.geeksforgeeks.org/problems/distance-from-the-source-bellman-ford-algorithm/0?fbclid=IwAR2_lL0T84DnciLyzMTQuVTMBOi82nTWNLuXjUgahnrtBgkphKiYk6xcyJU
+#Only for directed path(shortest path )
+
+// User function Template for Java
+
+/*
+*   edges: vector of vectors which represents the graph
+*   S: source vertex to start traversing graph with
+*   V: number of vertices
+*/
+class Solution {
+    static int[] bellman_ford(int V, ArrayList<ArrayList<Integer>> edges, int S) {
+        // Write your code here
+        int[] dist=new int[V];
+        Arrays.fill(dist,(int)(1e8));
+        int i=0;
+        
+        if(!BellmanFord(V,dist,edges,S)){
+            return new int[]{-1};
+        }
+        return dist;
+    }
+    public static boolean BellmanFord(int V,int[] dist,ArrayList<ArrayList<Integer>> edges,int src){
+        dist[src]=0;
+        for(int k=0;k<V-1;k++){
+        for(ArrayList<Integer> j:edges){
+            int u=j.get(0);
+            int v=j.get(1);
+            int weight=j.get(2);
+            if(dist[u]!=(int)(1e8) && dist[v]>dist[u]+weight){
+                dist[v]=dist[u]+weight;
+            }
+        }}
+        
+        for(ArrayList<Integer> j:edges){
+            int u=j.get(0);
+            int v=j.get(1);
+            int weight=j.get(2);
+            if(dist[u]!=(int)(1e8) && dist[v]>dist[u]+weight){
+                return false;
+            }
+        }
+        return true;
+    }
+}

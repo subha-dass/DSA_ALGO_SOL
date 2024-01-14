@@ -1,0 +1,12 @@
+#link- https://leetcode.com/problems/binary-tree-postorder-traversal/
+class Solution {
+    List<Integer> la =new ArrayList<>();
+    public List<Integer> postorderTraversal(TreeNode root) {
+        if(root!=null){
+            postorderTraversal(root.left);
+            postorderTraversal(root.right);
+            la.add(root.val);
+        }
+        return la;
+    }
+}
