@@ -1,5 +1,5 @@
 #link-https://www.geeksforgeeks.org/problems/minimum-spanning-tree/1
-#PrimsAlgo
+#PrimsAlgo(Undirected Graph)
 class Solution{
     static class Pair{
         int dest,wt;

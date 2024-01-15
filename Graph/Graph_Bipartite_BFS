@@ -1,4 +1,5 @@
 #link- https://leetcode.com/problems/is-graph-bipartite/description/
+#undirected graph
 class Solution {
     public boolean BFSRec(int[][] graph,int[] color,int c,int start){
         Queue<Integer> q=new LinkedList<>();
