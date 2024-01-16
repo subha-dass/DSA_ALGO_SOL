@@ -1,0 +1,70 @@
+#link - https://www.geeksforgeeks.org/problems/minimum-spanning-tree/1
+
+class Solution{
+    static class Edge implements Comparable<Edge>{
+        int wt;
+        int src;
+        int dest;
+        Edge(int src,int dest,int wt){
+            this.src=src;
+            this.dest=dest;
+            this.wt=wt;
+        }
+        public int compareTo(Edge p2){
+            return this.wt-p2.wt;
+        }
+    }
+    static void makeset(int[] parent,int[] rank,int n){
+        for(int i=0;i<n;i++){
+            parent[i]=i;
+            rank[i]=0;
+        }
+    }
+    static int findparent(int[] parent,int node){
+        if(parent[node]==node){
+            return node;
+        }
+        return parent[node]=findparent(parent,parent[node]);
+    }
+    static void union(int[] parent,int[] rank,int x,int y){
+        x=findparent(parent,x);
+        y=findparent(parent,y);
+        
+        if(rank[x]<rank[y]){
+            parent[x]=y;
+        }else if(rank[y]<rank[x]){
+            parent[y]=x;
+        }else{
+            parent[y]=x;
+            rank[x]++;
+        }
+    }
+	static int spanningTree(int V, int E, int edges[][]){
+	    // Code Here. 
+	    List<Edge> ed=new ArrayList<>();
+	    for(int i=0;i<E;i++){
+	        int src=edges[i][0];
+	        int dest=edges[i][1];
+	        int wt=edges[i][2];
+	        Edge temp=new Edge(src,dest,wt);
+	        ed.add(temp);
+	    }
+	    Collections.sort(ed);
+	    int[] parent=new int[V];
+	    int[] rank=new int[V];
+	    makeset(parent,rank,V);
+	    
+	    int result=0;
+	    for(Edge e:ed){
+	        int x=findparent(parent,e.src);
+	        int y=findparent(parent,e.dest);
+	        int wt=e.wt;
+	        
+	        if(x!=y){
+	            result+=wt;
+	            union(parent,rank,x,y);
+	        }
+	    }
+	    return result;
+	}
+}
