@@ -1,10 +1,12 @@
+
+//tips
 BFS                 --->          Unweighted
 
 Single Source
-Shortest path       --->          Positive weight     ---> Dijkstra(Directed)
+Shortest path       --->          Positive weight     ---> Dijkstra(both)
 
 Single Source                     Positive weight
-Shortest path       --->          and negative        ---> Bellmon Ford(Directed)
+Shortest path       --->          and negative        ---> Bellmon Ford(both)
 
 Shortest path                     positive and -ve
 b/w all pairs       --->          weight              --->Floyd Warshall

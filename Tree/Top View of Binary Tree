@@ -1,0 +1,44 @@
+#link-https://www.geeksforgeeks.org/problems/top-view-of-binary-tree/1
+
+class Solution
+{
+    //Function to return a list of nodes visible from the top view 
+    //from left to right in Binary Tree.
+    static class Queobj{
+        Node node;
+        int hd;
+        Queobj(int hd,Node node){
+            this.node=node;
+            this.hd=hd;
+        }
+    }
+    static ArrayList<Integer> topView(Node root)
+    {
+        ArrayList<Integer> ar=new ArrayList<>();
+        // add your code
+        if(root==null){
+            return ar;
+        }
+        Queue<Queobj> q=new LinkedList<>();
+        Map<Integer,Node> mp=new TreeMap<>();
+        
+        q.add(new Queobj(0,root));
+        mp.put(0,root);
+        
+        while(!q.isEmpty()){
+            Queobj qo=q.poll();
+            if(!mp.containsKey(qo.hd)){
+                mp.put(qo.hd,qo.node);
+            }
+            if(qo.node.left!=null){
+                q.add(new Queobj(qo.hd-1,qo.node.left));
+            }if(qo.node.right!=null){
+                q.add(new Queobj(qo.hd+1,qo.node.right));
+            }
+        }
+        for(Map.Entry<Integer,Node> e:mp.entrySet()){
+            ar.add(e.getValue().data);
+        }
+        return ar;
+    }
+}
