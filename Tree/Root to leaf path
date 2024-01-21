@@ -1,0 +1,49 @@
+#link - https://www.codingninjas.com/studio/problems/all-root-to-leaf-paths-in-binary-tree._983599?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf
+
+/********************************************************************
+
+ Following is the class structure of the Node class:
+
+ class BinaryTreeNode {
+     int data;
+     BinaryTreeNode left;
+     BinaryTreeNode right;
+
+     BinaryTreeNode(int data) {
+         this.data = data;
+         this.left = null;
+         this.right = null;
+     }
+ };
+
+ ********************************************************************/
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class Solution {
+    public static void Binary(List<String> li,BinaryTreeNode root,ArrayList<Integer> arr){
+        if(root==null){
+            return;
+        }
+        arr.add(root.data);
+        if(root.left!=null){Binary(li,root.left,arr);}
+        if(root.right!=null){Binary(li,root.right,arr);}
+        if(root.left==null && root.right==null){
+            String s="";
+            for(int i:arr){
+                s+=i;
+                s+=" ";
+            }
+            li.add(s);
+        }
+        arr.remove(arr.size()-1);
+    }
+    public static List<String> allRootToLeaf(BinaryTreeNode root) {
+        // Write your code here.
+        List<String> li=new ArrayList<>();
+        ArrayList<Integer> arr=new ArrayList<>();
+        Binary(li,root,arr);
+        return li;
+    }
+}
