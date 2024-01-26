@@ -1,0 +1,73 @@
+#link- https://www.codingninjas.com/studio/problems/boundary-traversal-of-binary-tree_790725?utm_source=striver&utm_medium=website&utm_campaign=a_zcoursetuf&leftPanelTabValue=PROBLEM
+
+/************************************************************
+
+ Following is the Binary Tree node structure:
+
+ class TreeNode {
+     int data;
+     TreeNode left;
+     TreeNode right;
+
+     TreeNode(int data) {
+         this.data = data;
+         this.left = null;
+         this.right = null;
+     }
+ }
+
+ ************************************************************/
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Stack;
+import java.util.LinkedList;
+
+public class Solution {
+    public static void leftTraversal(TreeNode root,List<Integer> li){
+        if(root==null){
+            return;
+        }if(root.left!=null || root.right!=null){
+            li.add(root.data);
+        }
+        if(root.left!=null){
+            leftTraversal(root.left,li);
+        }else{
+            leftTraversal(root.right,li);
+        }
+    }
+    public static void rightTraversal(TreeNode root,Stack<Integer> st){
+        if(root==null){
+            return;
+        }if(root.left!=null || root.right!=null){
+            st.add(root.data);
+        }
+        if(root.right!=null){
+            rightTraversal(root.right,st);
+        }else{
+            rightTraversal(root.left,st);
+        }
+    }
+    public static void inorderTraver(TreeNode root,List<Integer> li){
+        if(root==null){
+            return;
+        }inorderTraver(root.left,li);
+        if(root.left==null && root.right==null){
+            li.add(root.data);
+        }inorderTraver(root.right,li);
+    }
+    public static List<Integer> traverseBoundary(TreeNode root){
+        // Write your code here.
+        List<Integer> li=new ArrayList<Integer>();
+        Stack<Integer> st=new Stack<Integer>();
+        li.add(root.data);
+        leftTraversal(root.left,li);
+        inorderTraver(root,li);
+        rightTraversal(root.right,st);
+        int si=st.size();
+        for(int i=0;i<si;i++){
+            li.add(st.pop());
+        }
+        return li;
+    }
+}
