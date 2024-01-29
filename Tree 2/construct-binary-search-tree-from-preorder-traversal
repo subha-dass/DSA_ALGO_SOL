@@ -1,0 +1,37 @@
+#link- https://leetcode.com/problems/construct-binary-search-tree-from-preorder-traversal/
+##inorder conversion make the tree sorted and it make tree binary search tree.
+
+class Solution {
+    public int Search(int[] inorder,int start,int end,int value){
+        for(int i=start;i<=end;i++){
+            if(inorder[i]==value){
+                return i;
+            }
+        }
+        return -1;
+    }
+    int preInd=0;
+    public TreeNode BST(int[] pre,int[] in,int start,int end){
+        if(start>end){
+            return null;
+        }
+        System.out.println(preInd+" "+start+" "+end);
+        TreeNode tr=new TreeNode(pre[preInd]);
+        preInd+=1;
+        int indexSer=Search(in,start,end,tr.val);
+        if(indexSer==-1){
+            return null;
+        }
+        tr.left=BST(pre,in,start,indexSer-1);
+        tr.right=BST(pre,in,indexSer+1,end);
+
+        return tr;
+    }
+    public TreeNode bstFromPreorder(int[] preorder) {
+        int[] pre=Arrays.copyOf(preorder,preorder.length);
+        Arrays.sort(preorder);
+        int[] inorder=preorder;
+        TreeNode t=BST(pre,inorder,0,pre.length-1);
+        return t;
+    }
+}
