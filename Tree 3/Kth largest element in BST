@@ -1,0 +1,19 @@
+#link- https://www.geeksforgeeks.org/problems/kth-largest-element-in-bst/1
+
+class Solution
+{
+    public void inorder(Node root,ArrayList<Integer> ar){
+        if(root!=null){
+        inorder(root.left,ar);
+        ar.add(root.data);
+        inorder(root.right,ar);
+    }}
+    // return the Kth largest element in the given BST rooted at 'root'
+    public int kthLargest(Node root,int K)
+    {
+        //Your code here
+        ArrayList<Integer> ar=new ArrayList<Integer>();
+        inorder(root,ar);
+        return ar.get(ar.size()-K);
+    }
+}

@@ -1,0 +1,32 @@
+#link- https://www.codingninjas.com/studio/problems/ceil-from-bst_920464?source=youtube&campaign=Striver_Tree_Videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=Striver_Tree_Videos
+
+public class Solution {
+    public static int BST(TreeNode<Integer> root, int X){
+        if(root==null){
+            return -1;
+        }int val=0;
+        if(root.data>X){
+            val=BST(root.left,X);
+            if(val==-1){
+                return root.data;
+            }
+        }else if(root.data<X){
+            val=BST(root.right,X);
+            if(val==-1 && root.data>X){
+                return root.data;
+            }
+        }else{
+            return root.data;
+        }
+        return val;
+    }
+
+    public  static int findCeil(TreeNode<Integer> node, int x) {
+
+        // Write your code here
+        int result=0;
+        result=BST(node,x);
+        return result;
+
+    }
+}

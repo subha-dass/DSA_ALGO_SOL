@@ -1,0 +1,30 @@
+#link- https://www.codingninjas.com/studio/problems/floor-from-bst_920457?source=youtube&campaign=Striver_Tree_Videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=Striver_Tree_Videos
+
+public class Solution {
+    public static int  BST(TreeNode<Integer> root, int X){
+        if(root==null){
+            return -1;
+        }
+        int val=0;
+        if(root.data>X){
+            val=BST(root.left,X);
+            if(val==-1 && root.data<X){
+                return root.data;
+            }
+        }else if(root.data<X){
+            val=BST(root.right,X);
+            if(val==-1){
+                return root.data;
+            }
+        }else{
+            return root.data;
+        }
+        return val;
+    }
+    public static int floorInBST(TreeNode<Integer> root, int X) {
+        //    Write your code here.
+        int result=0;
+        result=BST(root,X);
+        return result;
+    }
+}

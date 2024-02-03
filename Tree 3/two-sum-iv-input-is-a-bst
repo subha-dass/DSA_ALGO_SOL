@@ -1,0 +1,15 @@
+#link- https://leetcode.com/problems/two-sum-iv-input-is-a-bst/
+
+class Solution {
+    boolean find(Set<Integer> s,TreeNode root,int k)
+{
+    if(root==null) return false;
+    if(s.contains(k-root.val)) return true;
+    s.add(root.val);
+    return find(s,root.left,k) || find(s,root.right,k);
+}
+    public boolean findTarget(TreeNode root, int k) {
+        Set<Integer> st=new HashSet<>();
+        return find(st,root,k);
+    }
+}
