@@ -1,0 +1,27 @@
+#link- https://www.codingninjas.com/studio/problems/frog-jump_3621012?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos&leftPanelTabValue=PROBLEM
+
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static int stair(int n,int[] heighs,int[] dp){
+        if(dp[n]!=-1)return dp[n];
+        if(n==0)return 0;
+        
+        int left=stair(n-1,heighs,dp)+Math.abs(heighs[n]-heighs[n-1]);
+        int right=Integer.MAX_VALUE;
+        if(n>1){
+            right=stair(n-2, heighs, dp)+Math.abs(heighs[n]-heighs[n-2]);
+        }
+        dp[n]=Math.min(left,right);
+        return dp[n];
+    }
+    public static int frogJump(int n, int heights[]) {
+
+        // Write your code here..
+        int[] dp=new int[n];
+        Arrays.fill(dp, -1);
+        int m=stair(n-1,heights,dp);
+        return m;
+    }
+
+}
