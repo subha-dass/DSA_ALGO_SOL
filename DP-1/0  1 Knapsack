@@ -1,0 +1,36 @@
+##link- https://www.codingninjas.com/studio/problems/1072980?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website&leftPanelTabValue=PROBLEM
+
+import java.util.ArrayList;
+
+public class Solution {
+	public static int knapsack(ArrayList<Integer> v,ArrayList<Integer> w,int n,int wt,int[][] dp){
+		if(n==0 || wt==0){
+			return 0;
+		}if(w.get(n-1)>wt){
+			return dp[n][wt]=knapsack(v, w, n-1, wt, dp);
+		}else{
+			return dp[n][wt]=Math.max(knapsack(v, w, n-1, wt, dp),v.get(n-1)+knapsack(v, w, n-1, wt-w.get(n-1), dp));
+		}
+		
+	}
+	public static int maxProfit(ArrayList<Integer> v, ArrayList<Integer> w, int n, int wt) {
+		// Write your code here.
+		
+		int[][] dp=new int[n+1][wt+1];
+		for(int i=0;i<=n;i++){
+			dp[i][0]=0;
+		}for(int i=0;i<=wt;i++){
+			dp[0][i]=0;
+		}
+		for(int i=1;i<=n;i++){
+			for(int j=1;j<=wt;j++){
+				if(w.get(i-1)>j){
+					dp[i][j]=dp[i-1][j];
+		}else{
+				dp[i][j]=Math.max(dp[i-1][j],v.get(i-1)+dp[i-1][j-w.get(i-1)]);
+		}
+			}
+		}
+		return dp[n][wt];
+	}
+}

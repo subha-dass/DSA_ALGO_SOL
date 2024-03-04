@@ -1,0 +1,29 @@
+#link- https://leetcode.com/problems/coin-change/
+
+
+class Solution {
+    public int findMincoin(int[] coins,int[][] dp,int amount,int ind){
+        if(ind==0){
+            if(amount % coins[0]==0)return amount/coins[0];
+            return (int)(1e9);
+        }
+        if(dp[ind][amount]!=-1)return dp[ind][amount];
+        int notTake=0+findMincoin(coins,dp,amount,ind-1);
+        int take=(int)(1e9);
+        if(amount >= coins[ind]){
+            take=1+findMincoin(coins,dp,amount-coins[ind],ind);
+        }
+        return dp[ind][amount]=Math.min(take,notTake);
+    }
+    public int coinChange(int[] coins, int amount) {
+        int n=coins.length;
+        int[][] dp=new int[n][amount+1];
+        for(int i=0;i<n;i++){
+            Arrays.fill(dp[i],-1);
+        }
+        int res=findMincoin(coins,dp,amount,n-1);
+        if(res>=(int)(1e8)){
+            return -1;
+        }return res;
+    }
+}
